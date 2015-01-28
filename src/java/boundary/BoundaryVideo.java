@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 @Stateless
-public class Videos {
+public class BoundaryVideo {
     
     @PersistenceContext
     EntityManager em;

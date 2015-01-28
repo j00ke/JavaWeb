@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -18,8 +19,9 @@ public class Achete implements Serializable{
     @Id
     @GeneratedValue
     @Column(name="ACHETEID") // lien avec la bdd
-    private String aid;
-    private String nom;
- 
+    private long aid;
+    private Date date;
+    
+    
     
 }

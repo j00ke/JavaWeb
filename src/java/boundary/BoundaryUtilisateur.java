@@ -5,6 +5,7 @@
  */
 package boundary;
 
+import entity.Utilisateur;
 import javax.persistence.EntityManager;
 
 /**
@@ -20,4 +21,14 @@ public class BoundaryUtilisateur {
         this.em=em;
     }
     
+     public Utilisateur creationUtilisateur(String nom,String prenom,String mail,String mdp)
+    {
+        Utilisateur u=new Utilisateur();
+        u.setNom(nom);
+        u.setPrenom(prenom);
+        u.setMail(mail);
+        u.setMdp(mdp);
+        em.persist(u);
+        return u;
+    }
 }

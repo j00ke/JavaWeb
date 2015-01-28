@@ -21,7 +21,7 @@ public class Utilisateur implements Serializable {
     @Id
     @GeneratedValue
     @Column(name="UTILISATEURID") // lien avec la bdd
-    private String uid;
+    private long uid;
     private String nom;
     private String prenom;
     private String mail;
@@ -37,11 +37,11 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
     
-    public String getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 

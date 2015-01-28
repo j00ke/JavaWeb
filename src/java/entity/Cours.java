@@ -21,7 +21,7 @@ public class Cours implements Serializable{
     @Id
     @GeneratedValue
     @Column(name="COURSID") // lien avec la bdd
-    private String cid;
+    private long cid;
     private String nom;
     private String description;
     private String img;
@@ -39,11 +39,11 @@ public class Cours implements Serializable{
     public Cours() {
     }
     
-    public String getCid() {
+    public long getCid() {
         return cid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(long cid) {
         this.cid = cid;
     }
 
