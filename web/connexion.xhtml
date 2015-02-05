@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <h:outputStylesheet name="style.css"/>
+            <title>Cours vidéos</title>
+        </h:head>
+        <h:body>
+            <h1>Cours vidéos en ligne</h1>
+            <p:outputPanel>
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"></div>
+                        <div class="ui-grid-col-4">
+                            <h:form> 
+                                <p:panel header="Authentification">
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <h:outputLabel for="email" value="Email : " /> 
+                                        <p:inputText size="22" id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide" value="#{Validation.email}"/>
+                                        <p:message for="email" />
+
+                                        <h:outputLabel for="mdp" value="Mot de passe : " />
+                                        <p:password size="22" id="mdp" required="true" label="mdp" requiredMessage="Entrez un mot de passe">
+                                        </p:password>
+                                        <p:message for="mdp" />
+                                    </h:panelGrid>
+
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <p:commandButton value="Connexion" icon="ui-icon-power" validateClient="true" ajax="false" action="index.xhtml"/>
+                                        <p:link outcome="inscription.xhtml" value="pas encore inscrit ?">
+                                        </p:link>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:form> 
+                        </div>
+                        <div class="ui-grid-col-4"></div>
+                    </div>
+                </div>  
+            </p:outputPanel>
+        </h:body>
+    </f:view>
+</html>
