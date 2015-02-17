@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <h:outputStylesheet name="style.css"/>
+        <title>Cours</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:viewParam name="coursId" value="#{presentationCours.cours.cid}"/>
+        </f:metadata>
+        <h:form>  
+            <p:growl id="messages"/>
+            <p:menubar>
+                <f:facet name="options">
+                    <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-extlink" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-extlink" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                    <p:commandButton value="Se déconnecter" icon="ui-icon-extlink" ajax="false" action="connexion.xhtml?faces-redirect=true"/>
+                </f:facet>
+            </p:menubar>
+        </h:form> 
+
+        <p:outputPanel>
+            <div id="conteneur">
+                <h2 style="text-align:center; margin-bottom: 50px;">Payement par carte bancaire</h2>
+                <h:form>
+                    <div class="ui-grid">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-3"></div>
+                            <div class="ui-grid-col-6">
+                                <p:panel header="Récapitulatif">
+                                    <h:panelGrid columns="2" cellpadding="4">
+                                        <b>Nom du cours : </b>
+                                        <h:outputText id="nom" value="#{presentationCours.getCoursById(presentationCours.cours.cid).nom}" />
+
+                                        <b>Nombre d'épisodes : </b>
+                                        <h:outputText id="nb" value="8" />
+
+                                        <b>Prix : </b>
+                                        <h:outputText id="prix" value="#{presentationCours.getCoursById(presentationCours.cours.cid).prix} euros" />
+                                    </h:panelGrid>
+                                </p:panel>
+                            </div>
+                            <div class="ui-grid-col-3"></div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-3"></div>
+                            <div class="ui-grid-col-6">
+                                <p:panel header="Informations bancaires" style="margin-top:30px;">
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <b>Type de carte : </b>
+                                        <p:selectOneRadio id="carte">
+                                            <f:selectItem itemLabel="Visa" itemValue="Visa" />
+                                            <f:selectItem itemLabel="MasterCard" itemValue="MasterCard" />
+                                            <f:selectItem itemLabel="American Express" itemValue="American Express" />
+                                        </p:selectOneRadio>
+                                        <p:message for="carte" />
+
+                                        <b>Numéro de la carte : </b>
+                                        <p:inputText id="num" required="true" label="num" requiredMessage="Entrez votre nom" value="bla"/>
+                                        <p:message for="num" />
+
+                                        <b>Date de validité : </b>
+                                        <p:inputText id="date" required="true" label="date" requiredMessage="Date de validité" value="date"/>
+                                        <p:message for="date" />
+
+                                        <b>Cryptogramme : </b>
+                                        <p:inputText id="crypt" required="true" label="crypt" requiredMessage="Cryptogramme" value="crypt"/>
+                                        <p:message for="crypt" />
+
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <p:commandButton value="Valider" action="test" icon="ui-icon-check" validateClient="true" ajax="false"/>
+                                        <p:button outcome="index.xhtml?faces-redirect=true" value="Annuler" icon="ui-icon-closethick"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </div>
+                            <div class="ui-grid-col-3"></div>
+                        </div>
+                    </div>
+                </h:form>
+            </div>
+        </p:outputPanel>
+    </h:body>
+</html>
+

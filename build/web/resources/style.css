@@ -1,0 +1,125 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 4 févr. 2015, 16:41:22
+    Author     : Jean
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300,400,600);
+
+
+.ui-layout-bd {
+    border: 0;
+}
+h1,h3,h2,h5{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+}
+
+h5{
+    font-size: 20px;
+    margin : 0;
+}
+
+h3{
+    font-size: 25px;
+}
+
+h2{
+    font-size: 35px;
+}
+
+h1{
+    font-size: 50px;
+}
+.ui-widget,.ui-widget .ui-widget {
+    font-size: 93% !important;
+}
+.ui-message-error-detail{
+    font-size : 11px;
+}
+
+
+#conteneur{
+    padding : 30px;
+}
+
+.thumbnail:hover{
+    -webkit-box-shadow: 1px 1px 5px 3px #8DDDF0;
+    box-shadow: 1px 1px 5px 3px #8DDDF0;  
+}
+
+.thumbnail{
+    border: 1px solid #ddd;
+    font-size: 85% !important;
+    padding : 20px;
+    text-align: center;
+    height:250px;
+    border-radius: 0px;
+}
+
+.thumbnail img{
+    max-width: 200px;
+}
+.th{
+    padding : 0 10px 0 10px;
+}
+
+.sep{
+    height: 3px;
+    margin: 20px auto 6px;
+    width: 100px;
+    background-color: #BDBFBF !important;
+}
+
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size:14px;
+    color : #777;
+}
+
+hr{
+    margin-bottom: 30px;
+}
+
+h4{
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size:18px;
+    margin:10px;
+}
+
+.pic {
+    overflow:hidden;
+    -webkit-border-radius:70px;
+    -moz-border-radius:70px;
+    border-radius:70px;
+    width:120px;
+    height:120px;
+}
+
+.pic2{
+    overflow:hidden;
+    -webkit-border-radius:100px;
+    -moz-border-radius:100px;
+    border-radius:100px;
+    width:150px;
+    height:150px;
+}
+
+#headerCours{
+    background-color: #DCDFDE;
+    height : 200px;
+    width:1200px;
+    margin:auto;
+}
+
+.detailLink {
+    display: block;
+    color: black;
+    text-decoration: none;
+}

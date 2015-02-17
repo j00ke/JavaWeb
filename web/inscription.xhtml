@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <f:view contentType="text/html">
+        <h:head>
+            <h:outputStylesheet name="style.css"/>
+            <title>Cours vidéos</title>
+        </h:head>
+        <h:body>
+            <h1 style="text-align:center">Cours vidéos en ligne</h1>
+            <p:outputPanel>
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-4"></div>
+                        <div class="ui-grid-col-4">
+                            <h:form> 
+                                <p:panel header="Inscription">
+                                    <h:panelGrid columns="3" cellpadding="4">
+
+                                        <h:outputLabel for="nom" value="Nom : " /> 
+                                        <p:inputText id="nom" required="true" label="nom" requiredMessage="Entrez votre nom" value="#{presentationUtilisateur.utilisateur.nom}"/>
+                                        <p:message for="nom" />
+
+                                        <h:outputLabel for="prenom" value="Prénom : " /> 
+                                        <p:inputText id="prenom" required="true" label="prenom" requiredMessage="Entrez votre prénom" value="#{presentationUtilisateur.utilisateur.prenom}"/>
+                                        <p:message for="prenom" />
+
+                                        <h:outputLabel for="email" value="Email : " /> 
+                                        <p:inputText id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide" value="#{presentationUtilisateur.utilisateur.mail}"/>
+                                        <p:message for="email" />
+
+                                        <h:outputLabel for="mdp" value="Mot de passe : " />
+                                        <p:password id="mdp" required="true" label="mdp" match="mdp2" value="#{presentationUtilisateur.utilisateur.mdp}" feedback="true"
+                                                    promptLabel="Entrez un mot de passe" weakLabel="Faible"
+                                                    goodLabel="Moyen" strongLabel="Excellent" requiredMessage="Entrez un mot de passe"/>
+                                        <p:message for="mdp" />
+
+                                        
+                                        <h:outputLabel for="mdp2" value="Confirmez : " />
+                                        <p:password id="mdp2" required="true" label="mdp2" requiredMessage="Confirmez votre mot de passe"/>
+                                        <p:message for="mdp2" />
+
+                                        
+                                    </h:panelGrid>
+                                    
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <h:outputLabel for="cap" value="Captcha : " />
+                                        <p:captcha id="cap" theme="white" language="fr"/>
+                                        <p:message for="cap" showDetail="true"/>
+                                    </h:panelGrid>
+
+                                    
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <p:commandButton value="Valider" action="#{presentationUtilisateur.doAjouter()}" icon="ui-icon-check" validateClient="true" ajax="false"/>
+                                        <p:button outcome="connexion.xhtml?faces-redirect=true" value="Annuler" icon="ui-icon-closethick"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:form> 
+                        </div>
+                        <div class="ui-grid-col-4"></div>
+                    </div>
+                </div>  
+            </p:outputPanel>
+        </h:body>
+    </f:view>
+</html>

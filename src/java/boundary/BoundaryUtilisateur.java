@@ -6,22 +6,37 @@
 package boundary;
 
 import entity.Utilisateur;
-import javax.persistence.EntityManager;
+import java.security.NoSuchAlgorithmException;
 
-/**
- *
- * @author J00ke
- */
+import java.util.List;
+import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+@Stateless
 public class BoundaryUtilisateur {
-    
-    protected EntityManager em;
-    
-    public BoundaryUtilisateur(EntityManager em)
-    {
-        this.em=em;
+
+    @PersistenceContext
+    EntityManager em;
+
+    @Inject
+    Event<Utilisateur> listeners;
+
+    public Utilisateur enregistre(Utilisateur util) {
+        Utilisateur utilisateur = em.merge(util);
+        listeners.fire(util);
+        return utilisateur;
     }
     
-     public Utilisateur creationUtilisateur(String nom,String prenom,String mail,String mdp)
+    public Utilisateur find(long utilId) {
+        return this.em.find(Utilisateur.class, utilId);
+    }
+    
+
+     public Utilisateur creationUtilisateur(String nom,String prenom,String mail,String mdp) throws NoSuchAlgorithmException
     {
         Utilisateur u=new Utilisateur();
         u.setNom(nom);
@@ -31,4 +46,10 @@ public class BoundaryUtilisateur {
         em.persist(u);
         return u;
     }
+
+    public List<Utilisateur> findAll() {
+        return this.em.createNamedQuery("findAllUtilisateurs",Utilisateur.class).getResultList();
+    }
+
+
 }
