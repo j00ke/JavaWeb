@@ -10,7 +10,7 @@
             <title>Cours vidéos</title>
         </h:head>
         <h:body>
-            <h1>Cours vidéos en ligne</h1>
+            <h1 style="text-align:center;">Cours vidéos en ligne</h1>
             <p:outputPanel>
                 <div class="ui-grid">
                     <div class="ui-grid-row">
@@ -20,7 +20,7 @@
                                 <p:panel header="Authentification">
                                     <h:panelGrid columns="3" cellpadding="4">
                                         <h:outputLabel for="email" value="Email : " /> 
-                                        <p:inputText size="22" id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide" value="#{Validation.email}"/>
+                                        <p:inputText size="22" id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide"/>
                                         <p:message for="email" />
 
                                         <h:outputLabel for="mdp" value="Mot de passe : " />
@@ -30,8 +30,8 @@
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="3" cellpadding="4">
-                                        <p:commandButton value="Connexion" icon="ui-icon-power" validateClient="true" ajax="false" action="index.xhtml"/>
-                                        <p:link outcome="inscription.xhtml" value="pas encore inscrit ?">
+                                        <p:commandButton value="Connexion" icon="ui-icon-power" validateClient="true" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                                        <p:link outcome="inscription.xhtml?faces-redirect=true" value="pas encore inscrit ?">
                                         </p:link>
                                     </h:panelGrid>
                                 </p:panel>

@@ -6,44 +6,53 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 
 /**
  *
  * @author J00ke
  */
-
 @Entity
-public class Cours implements Serializable{
+@NamedQuery(name = "findAllCours", query = "SELECT i FROM Cours i")
+public class Cours implements Serializable {
+
     @Id
     @GeneratedValue
-    @Column(name="COURSID") // lien avec la bdd
-    private String cid;
+    @Column(name = "COURSID") // lien avec la bdd
+    private int cid;
     private String nom;
     private String description;
     private String img;
-    private Boolean payant ;   // true = payant  false = gratuit
-    private double prix; 
+    private Boolean payant;   // true = payant  false = gratuit
+    private double prix;
+    @OneToMany(mappedBy = "cours")
+    Set<Video> videos;
 
-    public Cours(String nom, String description, String img, Boolean payant, double prix) {
+    public Cours(int cid, String nom, String description, String img, Boolean payant, double prix, Set<Video> videos) {
+        this.cid = cid;
         this.nom = nom;
         this.description = description;
         this.img = img;
         this.payant = payant;
         this.prix = prix;
+        this.videos = videos;
     }
 
     public Cours() {
     }
-    
-    public String getCid() {
+
+    public int getCid() {
         return cid;
     }
 
-    public void setCid(String cid) {
+    public void setCid(int cid) {
         this.cid = cid;
     }
 
@@ -85,6 +94,6 @@ public class Cours implements Serializable{
 
     public void setPrix(double prix) {
         this.prix = prix;
-    } 
-    
+    }
+
 }

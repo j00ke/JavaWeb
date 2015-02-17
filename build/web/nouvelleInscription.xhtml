@@ -11,13 +11,15 @@
         <h:form>
             <h:panelGrid columns="2">
                 <h:outputLabel value="Formation: "/> 
-                <h:inputText value="#{nouvelleInscription.inscription.formation}"/>
+                <h:inputText value="#{presentationUtilisateur.utilisateur.nom}"/>
                 <h:outputLabel value="Inscrits: "/> 
-                <h:inputText value="#{nouvelleInscription.inscription.nbInscrits}"/>
+                <h:inputText value="#{presentationUtilisateur.utilisateur.prenom}"/>
                 <h:outputLabel value="Durée: "/> 
-                <h:inputText value="#{nouvelleInscription.inscription.nbJours}"/>
+                <h:inputText value="#{presentationUtilisateur.utilisateur.mail}"/>
+                <h:outputLabel value="mdp "/> 
+                <h:inputText value="#{presentationUtilisateur.utilisateur.mdp}"/>
             </h:panelGrid>
-            <h:commandButton value="Ajouter" action="#{nouvelleInscription.doAjouter}"/>
+            <h:commandButton value="Ajouter" action="#{presentationUtilisateur.doAjouter()}"/>
     </h:form> 
     <hr/>
 </h:body>

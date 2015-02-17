@@ -5,12 +5,13 @@ import static java.math.BigDecimal.valueOf;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQuery(name = "findAllVideos", query = "SELECT i FROM Video i")
 public class Video {
-    
+
     @Id
     @GeneratedValue
     private long id;
@@ -18,14 +19,18 @@ public class Video {
     private String nomVideo;
     private String url;
 
+    @ManyToOne
+    Cours cours;
+
     public Video() {
     }
 
-    public Video(long id, String nom, String nomVideo, String url) {
+    public Video(long id, String nom, String nomVideo, String url, Cours cours) {
         this.id = id;
         this.nom = nom;
         this.nomVideo = nomVideo;
         this.url = url;
+        this.cours = cours;
     }
 
     public long getId() {
@@ -59,6 +64,5 @@ public class Video {
     public void setUrl(String url) {
         this.url = url;
     }
-    
-    
+
 }
