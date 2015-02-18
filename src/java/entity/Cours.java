@@ -45,6 +45,8 @@ public class Cours implements Serializable {
         this.videos = videos;
     }
 
+    
+
     public Cours() {
     }
 

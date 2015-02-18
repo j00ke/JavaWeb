@@ -33,6 +33,8 @@ public class Video {
         this.cours = cours;
     }
 
+    
+
     public long getId() {
         return id;
     }
