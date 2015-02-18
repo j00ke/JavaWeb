@@ -26,9 +26,11 @@ public class Utilisateur{
     @Id
     @GeneratedValue
     @Column(name="UTILISATEURID") // lien avec la bdd
-    private String uid;
+
+    private long uid;
     
     @Size(min = 2, max = 20)
+
     private String nom;
     
     @Size(min = 2, max = 20)
@@ -48,11 +50,11 @@ public class Utilisateur{
     public Utilisateur() {
     }
     
-    public String getUid() {
+    public long getUid() {
         return uid;
     }
 
-    public void setUid(String uid) {
+    public void setUid(long uid) {
         this.uid = uid;
     }
 

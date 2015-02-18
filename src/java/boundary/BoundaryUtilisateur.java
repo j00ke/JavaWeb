@@ -6,10 +6,13 @@
 package boundary;
 
 import entity.Utilisateur;
+import java.security.NoSuchAlgorithmException;
+
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -32,8 +35,21 @@ public class BoundaryUtilisateur {
         return this.em.find(Utilisateur.class, utilId);
     }
     
+
+     public Utilisateur creationUtilisateur(String nom,String prenom,String mail,String mdp) throws NoSuchAlgorithmException
+    {
+        Utilisateur u=new Utilisateur();
+        u.setNom(nom);
+        u.setPrenom(prenom);
+        u.setMail(mail);
+        u.setMdp(mdp);
+        em.persist(u);
+        return u;
+    }
+
     public List<Utilisateur> findAll() {
         return this.em.createNamedQuery("findAllUtilisateurs",Utilisateur.class).getResultList();
     }
+
 
 }
