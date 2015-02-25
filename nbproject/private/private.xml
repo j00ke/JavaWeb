@@ -3,14 +3,19 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/Cours/projetweb/web/modifCours.xhtml</file>
-            <file>file:/D:/Documents/Cours/projetweb/src/java/boundary/BoundaryVideo.java</file>
-            <file>file:/D:/Documents/Cours/projetweb/src/java/boundary/BoundaryCours.java</file>
-            <file>file:/D:/Documents/Cours/projetweb/src/java/presentation/PresentationUtilisateur.java</file>
+            <file>file:/D:/Documents/Cours/projetweb/src/java/entity/Cours.java</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/mesCours.xhtml</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/gererUtilisateurs.xhtml</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/resources/style.css</file>
             <file>file:/D:/Documents/Cours/projetweb/src/java/presentation/PresentationCours.java</file>
-            <file>file:/D:/Documents/Cours/projetweb/web/acheterCours.xhtml</file>
             <file>file:/D:/Documents/Cours/projetweb/web/cours.xhtml</file>
             <file>file:/D:/Documents/Cours/projetweb/web/index.xhtml</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/modifCours.xhtml</file>
+            <file>file:/D:/Documents/Cours/projetweb/src/java/entity/Video.java</file>
+            <file>file:/D:/Documents/Cours/projetweb/src/java/entity/Utilisateur.java</file>
+            <file>file:/D:/Documents/Cours/projetweb/src/java/presentation/PresentationUtilisateur.java</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/inscription.xhtml</file>
+            <file>file:/D:/Documents/Cours/projetweb/web/newjsf.xhtml</file>
         </group>
     </open-files>
 </project-private>
