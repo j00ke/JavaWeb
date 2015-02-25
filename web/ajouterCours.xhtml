@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <h:outputStylesheet name="style.css"/>
+        <title>Cours</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event listener="#{connexion.checkAdmin}" type="preRenderView" />
+        </f:metadata>
+        <h:form>  
+            <p:menubar>
+                <c:if test="#{connexion.isAdmin}">
+                    <p:submenu label="Administration" icon="ui-icon-pencil">
+                        <p:menuitem value="Gérer utilisateurs" url="gererUtilisateurs.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Gérer les cours" url="gererCours.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:submenu>
+                </c:if>
+                <f:facet name="options">
+                    <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-home" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-star" ajax="false" action="mesCours.xhtml?faces-redirect=true"/>
+                    <p:commandButton value="Se déconnecter (#{session.getAttribute('user').getMail()})" icon="ui-icon-unlocked" ajax="false" action="#{connexion.deconnexion()}"/>
+                </f:facet>
+            </p:menubar>
+        </h:form> 
+        <p:outputPanel>
+            <div id="conteneur">
+                <div class="ui-grid">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3"></div>
+                        <div class="ui-grid-col-6" style="text-align:center;">
+                            <h3 style="margin-top:0;">Ajouter un nouveau cours</h3>
+                        </div>
+                        <div class="ui-grid-col-3"></div>
+                    </div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-3"></div>
+                        <div class="ui-grid-col-6">
+                            <h:form> 
+                                <p:panel header="Remplissez les informations du cours">
+                                    <p:messages globalOnly="true" showDetail="true" autoUpdate="true"/>
+                                    <h:panelGrid columns="3" cellpadding="2">
+                                        <h:outputLabel for="nom" value="Nom du cours: " /> 
+                                        <p:inputText id="nom" required="true" label="nom" requiredMessage="Entrez le nom du cours" value="#{presentationCours.cours.nom}"/>
+                                        <p:message for="nom" />
+
+                                        <h:outputLabel for="img" value="Chemin de l'image: " /> 
+                                        <p:inputText id="img" required="true" label="img" requiredMessage="Entrez le chemin d'une image" value="#{presentationCours.cours.img}"/>
+                                        <p:message for="img" />
+
+                                        <h:outputLabel for="payant" value="Cours payant : " /> 
+                                        <p:inputSwitch value="#{presentationCours.cours.payant}" onLabel="oui" offLabel="non" id="payant" label="payant"/>
+                                        <p:message for="payant" />
+
+                                        <h:outputLabel for="prix" value="Prix : (entrez 0 si non payant)" /> 
+                                        <p:inputText id="prix" required="true" label="prix" requiredMessage="Entrez le prix du cours" value="#{presentationCours.cours.prix}"/>
+                                        <p:message for="prix" />
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="2" cellpadding="2">
+                                        <h:outputLabel for="desc" value="Description du cours" /> 
+                                        <p:inputTextarea rows="8" cols="70" counter="display" maxlength="400" counterTemplate="{0} caractères restants." value="#{presentationCours.cours.description}"  id="desc" required="true" label="desc" requiredMessage="Entrez une description"/>
+                                        <h:outputText id="display" style="float:right;"/>
+                                        <p:message for="desc" />
+                                    </h:panelGrid>
+                                    <h:panelGrid columns="3" cellpadding="4">
+                                        <p:commandButton value="Valider" action="#{presentationCours.doAjouter()}" icon="ui-icon-check" validateClient="true" ajax="false"/>
+                                        <p:button outcome="gererCours.xhtml?faces-redirect=true" value="Annuler" icon="ui-icon-closethick"/>
+                                    </h:panelGrid>
+                                </p:panel>
+                            </h:form> 
+                        </div>
+                        <div class="ui-grid-col-3"></div>
+                    </div>
+                </div>
+            </div>
+        </p:outputPanel>
+    </h:body>
+</html>

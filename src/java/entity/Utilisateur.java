@@ -5,12 +5,17 @@
  */
 package entity;
 
+import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -22,15 +27,14 @@ import javax.validation.constraints.Size;
 
 @Entity
 @NamedQuery(name = "findAllUtilisateurs", query = "SELECT i FROM Utilisateur i")
-public class Utilisateur{
+public class Utilisateur implements Serializable{
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name="UTILISATEURID") // lien avec la bdd
 
     private long uid;
     
     @Size(min = 2, max = 20)
-
     private String nom;
     
     @Size(min = 2, max = 20)
@@ -38,7 +42,14 @@ public class Utilisateur{
     
     @Pattern(regexp = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$")
     private String mail;
+    
     private String mdp;
+    
+    @ManyToMany
+    List<Cours> listeCours;
+    
+    @ManyToMany
+    List<Video> videosVues;
 
     public Utilisateur(String nom, String prenom, String mail, String mdp) {
         this.nom = nom;
@@ -86,21 +97,24 @@ public class Utilisateur{
         return mdp;
     }
 
-    //Encodage du mdp avec SHA-256
-    public void setMdp(String mdp) throws NoSuchAlgorithmException {
- 
-        final MessageDigest digest = MessageDigest.getInstance("SHA-256");
-        digest.update(mdp.getBytes());
- 
-        byte byteData[] = digest.digest();
- 
-        //convertit byte en hexadecimal
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < byteData.length; i++) {
-         sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        
-        this.mdp = sb.toString();
+    public void setMdp(String mdp) {
+        this.mdp=mdp;
+    }
+
+    public List<Cours> getListeCours() {
+        return listeCours;
+    }
+
+    public void setListeCours(List<Cours> listeCours) {
+        this.listeCours = listeCours;
+    }
+
+    public List<Video> getVideosVues() {
+        return videosVues;
+    }
+
+    public void setVideosVues(List<Video> videosVues) {
+        this.videosVues = videosVues;
     }
     
     

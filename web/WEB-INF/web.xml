@@ -8,7 +8,6 @@
         <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
         <param-value>6Lf1MAETAAAAAMwXL1VYq8u2Cse7z2argYa_xwaY</param-value>
     </context-param>
-    
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
         <param-value>6Lf1MAETAAAAAJ9aZ1rbHAcBbF5Rrz9M2oNEpNy_</param-value>

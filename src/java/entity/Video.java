@@ -1,26 +1,40 @@
 package entity;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import static java.math.BigDecimal.valueOf;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.Size;
 
 @Entity
 @NamedQuery(name = "findAllVideos", query = "SELECT i FROM Video i")
-public class Video {
+public class Video implements Serializable{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
+    
+    @Size(min = 2, max = 40)
     private String nom;
     private String nomVideo;
+    
+    @Size(min = 2, max = 80)
     private String url;
 
     @ManyToOne
     Cours cours;
+    
+    @ManyToMany(mappedBy = "videosVues")
+    List<Utilisateur> listeUtils;
 
     public Video() {
     }
@@ -32,8 +46,6 @@ public class Video {
         this.url = url;
         this.cours = cours;
     }
-
-    
 
     public long getId() {
         return id;
@@ -66,5 +78,22 @@ public class Video {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public Cours getCours() {
+        return cours;
+    }
+
+    public void setCours(Cours cours) {
+        this.cours = cours;
+    }
+
+    public List<Utilisateur> getListeUtils() {
+        return listeUtils;
+    }
+
+    public void setListeUtils(List<Utilisateur> listeUtils) {
+        this.listeUtils = listeUtils;
+    }
+    
 
 }

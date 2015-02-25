@@ -9,10 +9,14 @@
             <title>Liste des inscriptions</title>
         </h:head>
         <h:body>
+            <f:metadata>
+                <f:viewParam name="coursId" value="#{presentationCours.coursId}"/>
+                <f:viewAction action="#{presentationCours.init}" />
+            </f:metadata>
             <h1>Inscriptions</h1>
             <hr/>
             <h:form>
-                <p:dataTable value="#{listeInscriptions.liste}" var="l">
+                <p:dataTable value="#{listeInscriptions.liste}" var="l" >
                     <p:column headerText="Formation">
                         <h:outputText value="#{l.formation}"/>
                     </p:column>

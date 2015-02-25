@@ -18,8 +18,8 @@
                         <div class="ui-grid-col-4">
                             <h:form> 
                                 <p:panel header="Inscription">
+                                    <p:messages globalOnly="true" showDetail="true" autoUpdate="true"/>
                                     <h:panelGrid columns="3" cellpadding="4">
-
                                         <h:outputLabel for="nom" value="Nom : " /> 
                                         <p:inputText id="nom" required="true" label="nom" requiredMessage="Entrez votre nom" value="#{presentationUtilisateur.utilisateur.nom}"/>
                                         <p:message for="nom" />
@@ -35,24 +35,27 @@
                                         <h:outputLabel for="mdp" value="Mot de passe : " />
                                         <p:password id="mdp" required="true" label="mdp" match="mdp2" value="#{presentationUtilisateur.utilisateur.mdp}" feedback="true"
                                                     promptLabel="Entrez un mot de passe" weakLabel="Faible"
-                                                    goodLabel="Moyen" strongLabel="Excellent" requiredMessage="Entrez un mot de passe"/>
+                                                    validatorMessage="Doit être compris entre 6 et 20 caractères et comprendre au moins un chiffre"
+
+                                                    goodLabel="Moyen" strongLabel="Excellent" requiredMessage="Entrez un mot de passe">
+                                            <f:validateRegex pattern="((?=.*\d)(?=.*[a-zA-Z]).{6,20})" />
+                                        </p:password>
                                         <p:message for="mdp" />
 
-                                        
                                         <h:outputLabel for="mdp2" value="Confirmez : " />
                                         <p:password id="mdp2" required="true" label="mdp2" requiredMessage="Confirmez votre mot de passe"/>
                                         <p:message for="mdp2" />
 
-                                        
+
                                     </h:panelGrid>
-                                    
+
                                     <h:panelGrid columns="3" cellpadding="4">
                                         <h:outputLabel for="cap" value="Captcha : " />
                                         <p:captcha id="cap" theme="white" language="fr"/>
                                         <p:message for="cap" showDetail="true"/>
                                     </h:panelGrid>
 
-                                    
+
                                     <h:panelGrid columns="3" cellpadding="4">
                                         <p:commandButton value="Valider" action="#{presentationUtilisateur.doAjouter()}" icon="ui-icon-check" validateClient="true" ajax="false"/>
                                         <p:button outcome="connexion.xhtml?faces-redirect=true" value="Annuler" icon="ui-icon-closethick"/>

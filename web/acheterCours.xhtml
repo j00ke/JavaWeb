@@ -3,26 +3,34 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <h:outputStylesheet name="style.css"/>
         <title>Cours</title>
     </h:head>
     <h:body>
         <f:metadata>
+            <f:event listener="#{connexion.checkLogin}" type="preRenderView" />
             <f:viewParam name="coursId" value="#{presentationCours.cours.cid}"/>
+            <f:event type="preRenderView" listener="#{presentationCours.init}" />
         </f:metadata>
         <h:form>  
-            <p:growl id="messages"/>
             <p:menubar>
+                <c:if test="#{connexion.isAdmin}">
+                    <p:submenu label="Administration" icon="ui-icon-pencil">
+                        <p:menuitem value="Gérer utilisateurs" url="gererUtilisateurs.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Gérer les cours" url="gererCours.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:submenu>
+                </c:if>
                 <f:facet name="options">
-                    <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-extlink" ajax="false" action="index.xhtml?faces-redirect=true"/>
-                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-extlink" ajax="false" action="index.xhtml?faces-redirect=true"/>
-                    <p:commandButton value="Se déconnecter" icon="ui-icon-extlink" ajax="false" action="connexion.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-home" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-star" ajax="false" action="mesCours.xhtml?faces-redirect=true"/>
+                    <p:commandButton value="Se déconnecter (#{session.getAttribute('user').getMail()})" icon="ui-icon-unlocked" ajax="false" action="#{connexion.deconnexion()}"/>
                 </f:facet>
             </p:menubar>
         </h:form> 
-
         <p:outputPanel>
             <div id="conteneur">
                 <h2 style="text-align:center; margin-bottom: 50px;">Payement par carte bancaire</h2>
@@ -34,13 +42,12 @@
                                 <p:panel header="Récapitulatif">
                                     <h:panelGrid columns="2" cellpadding="4">
                                         <b>Nom du cours : </b>
-                                        <h:outputText id="nom" value="#{presentationCours.getCoursById(presentationCours.cours.cid).nom}" />
+                                        <h:outputText id="nom" value="#{presentationCours.cours.nom}" />
 
                                         <b>Nombre d'épisodes : </b>
-                                        <h:outputText id="nb" value="8" />
-
+                                        <h:outputText id="nb" value="#{fn:length(presentationCours.cours.listeVideos)}" />
                                         <b>Prix : </b>
-                                        <h:outputText id="prix" value="#{presentationCours.getCoursById(presentationCours.cours.cid).prix} euros" />
+                                        <h:outputText id="prix" value="#{presentationCours.cours.prix} euros" />
                                     </h:panelGrid>
                                 </p:panel>
                             </div>
@@ -60,20 +67,20 @@
                                         <p:message for="carte" />
 
                                         <b>Numéro de la carte : </b>
-                                        <p:inputText id="num" required="true" label="num" requiredMessage="Entrez votre nom" value="bla"/>
+                                        <p:inputText id="num" required="true" label="num" value="123" requiredMessage="Entrez le numéro de la carte"/>
                                         <p:message for="num" />
 
                                         <b>Date de validité : </b>
-                                        <p:inputText id="date" required="true" label="date" requiredMessage="Date de validité" value="date"/>
+                                        <p:inputText id="date" required="true" label="date"  value="123" requiredMessage="Date de validité"/>
                                         <p:message for="date" />
 
                                         <b>Cryptogramme : </b>
-                                        <p:inputText id="crypt" required="true" label="crypt" requiredMessage="Cryptogramme" value="crypt"/>
+                                        <p:inputText id="crypt" required="true" label="crypt" value="123" requiredMessage="Cryptogramme"/>
                                         <p:message for="crypt" />
 
                                     </h:panelGrid>
                                     <h:panelGrid columns="3" cellpadding="4">
-                                        <p:commandButton value="Valider" action="test" icon="ui-icon-check" validateClient="true" ajax="false"/>
+                                        <p:commandButton value="Valider" action="#{presentationUtilisateur.ajouterCours(presentationCours.cours.cid, session.getAttribute('user').getUid())}" icon="ui-icon-check" validateClient="true" ajax="false"/>
                                         <p:button outcome="index.xhtml?faces-redirect=true" value="Annuler" icon="ui-icon-closethick"/>
                                     </h:panelGrid>
                                 </p:panel>
@@ -86,4 +93,3 @@
         </p:outputPanel>
     </h:body>
 </html>
-

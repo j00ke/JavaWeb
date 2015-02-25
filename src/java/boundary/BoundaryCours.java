@@ -7,6 +7,8 @@ package boundary;
 
 import entity.Cours;
 import entity.Utilisateur;
+import entity.Video;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.enterprise.event.Event;
@@ -16,7 +18,7 @@ import javax.persistence.PersistenceContext;
 
 @Stateless
 public class BoundaryCours {
-    
+
     @PersistenceContext
     EntityManager em;
 
@@ -28,12 +30,21 @@ public class BoundaryCours {
         listeners.fire(c);
         return cours;
     }
-    
-    public Cours find(int cId) {
+
+    public void Supprimer(Cours c) {
+        Cours cours = em.merge(c);
+        em.remove(cours);
+    }
+
+    public void Modifier(Cours c) {
+        em.merge(c);
+    }
+
+    public Cours find(long cId) {
         return this.em.find(Cours.class, cId);
     }
-    
+
     public List<Cours> findAll() {
-        return this.em.createNamedQuery("findAllCours",Cours.class).getResultList();
+        return this.em.createNamedQuery("findAllCours", Cours.class).getResultList();
     }
 }

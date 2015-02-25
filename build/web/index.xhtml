@@ -4,30 +4,42 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <h:head>
         <h:outputStylesheet name="style.css"/>
         <title>Mes cours vidéos</title>
     </h:head>
     <h:body>
+        <f:metadata>
+            <f:event listener="#{connexion.checkLogin}" type="preRenderView" />
+        </f:metadata>
         <h:form>  
-            <p:growl id="messages"/>
             <p:menubar>
+                <c:if test="#{connexion.isAdmin}">
+                    <p:submenu label="Administration" icon="ui-icon-pencil">
+                        <p:menuitem value="Gérer utilisateurs" url="gererUtilisateurs.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Gérer les cours" url="gererCours.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:submenu>
+                </c:if>
                 <f:facet name="options">
                     <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-home" ajax="false" action="index.xhtml?faces-redirect=true"/>
-                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-star" ajax="false" action="index.xhtml?faces-redirect=true"/>
-                    <p:commandButton value="Se déconnecter" icon="ui-icon-unlocked" ajax="false" action="connexion.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-star" ajax="false" action="mesCours.xhtml?faces-redirect=true"/>
+                    <p:commandButton value="Se déconnecter (#{session.getAttribute('user').getMail()})" icon="ui-icon-unlocked" ajax="false" action="#{connexion.deconnexion()}"/>
                 </f:facet>
             </p:menubar>
         </h:form> 
-
-        <h1 style="text-align:center;">Cours vidéos en ligne</h1>
-        <div id="conteneur" style="margin-top: 150px;">
-
-            <h3 style="text-align:center;">Tous les cours vidéos disponibles</h3>
-            <hr/>
+        <div id="title">
+            <h1 style="text-align:center;">Cours vidéos en ligne</h1>
+        </div>
+        <div id="conteneur" style="margin-top: 50px;background-color: #f3f3f3;">
+            <h2 style="text-align:center;">Tous les cours vidéos disponibles</h2>
             <h:form>
                 <div class="ui-grid">
+                    <c:if test="#{fn:length(presentationCours.listeCours)==0}">
+                        <p style="text-align:center;">Il n'existe aucun cours pour le moment !</p>
+                    </c:if>
                     <c:forEach items="#{presentationCours.listeCours}" var="c" varStatus="pos">
                         <c:if test="#{(pos.index % 4) == 0}">
                             <div class="ui-grid-row" style="margin-top: 20px;">
@@ -38,14 +50,13 @@
                                                 <h:graphicImage class="pic" library="img" name="#{c.img}"/>
                                                 <h4><h:outputText value="#{c.nom}" /></h4>
                                                 <div class="sep"></div>
-                                                <p><b>8</b> épisodes vidéo</p>
+                                                <p><b><h:outputText value="#{fn:length(c.getlisteVideos())}" /></b> épisodes</p>
                                                 <c:if test="#{c.prix != 0}">
                                                     <p><b><h:outputText value="#{c.prix}" /></b> euros</p>
                                                 </c:if>
                                                 <c:if test="#{c.prix == 0}">
                                                     <p><b>Cours gratuit !</b></p>
                                                 </c:if>
-
                                             </div>
                                         </p:commandLink>
                                     </div>
@@ -58,19 +69,23 @@
                                                     <div class="ui-grid-col-2">
                                                         <h:graphicImage class="pic2" library="img" name="#{c.img}"/>
                                                     </div>
-                                                    <div class="ui-grid-col-7">
-                                                        <p style="margin-top: 0;padding-left: 20px;">
+                                                    <div class="ui-grid-col-7" style="padding-left:20px;overflow:auto;">
+                                                        <p style="margin-top: 0;">
                                                             <h:outputText value="#{c.description}" escape="false" />
                                                         </p>
+                                                        <p><b>Sommaire : </b></p>
+                                                        <c:forEach items="#{c.getlisteVideos()}" var="v" varStatus="pos2">
+                                                            <p><h:outputText value="#{pos2.index+1}" />. 
+                                                                <h:outputText value="#{v.nom}" /></p>
+                                                        </c:forEach>
                                                     </div>
                                                 </div>
                                                 <div class="sep"></div>
                                                 <div class="ui-grid-row">
                                                     <div class="ui-grid-col-4"></div>
                                                     <div class="ui-grid-col-4" style="text-align:center;">
-                                                        <p>Ce cours contient <b>8</b> épisodes vidéo</p>
                                                         <c:if test="#{c.prix != 0}">
-                                                            <p><b><h:outputText value="#{c.prix}" /></b> euros</p>
+                                                            <p>Prix : <b><h:outputText value="#{c.prix}" /></b> euros</p>
                                                         </c:if>
                                                         <c:if test="#{c.prix == 0}">
                                                             <p><b>Cours gratuit !</b></p>
@@ -82,17 +97,20 @@
                                                     <div class="ui-grid-col-4"></div>
                                                     <div class="ui-grid-col-2" style="text-align:center;">
                                                         <p:button value="Annuler" icon="ui-icon-closethick ui-dialog-titlebar-close"/>
-
                                                     </div>
                                                     <div class="ui-grid-col-2" style="text-align:center;">
-                                                        <c:if test="#{c.prix != 0}">
-                                                            <p:button outcome="acheterCours.xhtml" value="Acheter le cours" icon="ui-icon-cart">
-                                                                <f:param name="coursId" value="#{c.cid}" />
-                                                            </p:button>
+                                                        <c:if test="#{presentationUtilisateur.possedeCours(c.cid, session.getAttribute('user').getUid())}">
+                                                            <p:button value="Déjà ajouté" disabled="true"/>
                                                         </c:if>
-                                                        <c:if test="#{c.prix == 0}">
-                                                            <p:button outcome="index.xhtml" value="Ajouter le cours" icon="ui-icon-cart">
-                                                            </p:button>
+                                                        <c:if test="#{!presentationUtilisateur.possedeCours(c.cid, session.getAttribute('user').getUid())}">
+                                                            <c:if test="#{c.prix != 0}">
+                                                                <p:button outcome="acheterCours.xhtml?faces-redirect=true" value="Acheter" icon="ui-icon-cart">
+                                                                    <f:param name="coursId" value="#{c.cid}" />
+                                                                </p:button>
+                                                            </c:if>
+                                                            <c:if test="#{c.prix == 0}">
+                                                                <p:commandButton value="Ajouter" icon="ui-icon-cart" ajax="false" action="#{presentationUtilisateur.ajouterCours(c.cid, session.getAttribute('user').getUid())}"/>
+                                                            </c:if>
                                                         </c:if>
                                                     </div>
                                                     <div class="ui-grid-col-4"></div>

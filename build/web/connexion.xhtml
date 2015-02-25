@@ -18,19 +18,20 @@
                         <div class="ui-grid-col-4">
                             <h:form> 
                                 <p:panel header="Authentification">
+                                    <p:messages globalOnly="true" showDetail="true" autoUpdate="true"/>
                                     <h:panelGrid columns="3" cellpadding="4">
                                         <h:outputLabel for="email" value="Email : " /> 
-                                        <p:inputText size="22" id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide"/>
+                                        <p:inputText size="22" id="email" required="true" label="email" requiredMessage="Entrez une adresse email" validatorMessage="Adresse email invalide" value="#{connexion.mail}"/>
                                         <p:message for="email" />
 
                                         <h:outputLabel for="mdp" value="Mot de passe : " />
-                                        <p:password size="22" id="mdp" required="true" label="mdp" requiredMessage="Entrez un mot de passe">
+                                        <p:password size="22" id="mdp" required="true" label="mdp" requiredMessage="Entrez un mot de passe" value="#{connexion.mdp}">
                                         </p:password>
                                         <p:message for="mdp" />
                                     </h:panelGrid>
 
                                     <h:panelGrid columns="3" cellpadding="4">
-                                        <p:commandButton value="Connexion" icon="ui-icon-power" validateClient="true" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                                        <p:commandButton value="Connexion" icon="ui-icon-power" validateClient="true" ajax="false" action="#{connexion.connexion()}"/>
                                         <p:link outcome="inscription.xhtml?faces-redirect=true" value="pas encore inscrit ?">
                                         </p:link>
                                     </h:panelGrid>

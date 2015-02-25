@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <h:outputStylesheet name="style.css"/>
+        <title>Cours</title>
+    </h:head>
+    <h:body>
+        <f:metadata>
+            <f:event listener="#{connexion.checkAdmin}" type="preRenderView" />
+        </f:metadata>
+        <h:form>  
+            <p:menubar>
+                <c:if test="#{connexion.isAdmin}">
+                    <p:submenu label="Administration" icon="ui-icon-pencil">
+                        <p:menuitem value="Gérer utilisateurs" url="gererUtilisateurs.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                        <p:menuitem value="Gérer les cours" url="gererCours.xhtml?faces-redirect=true" icon="ui-icon-arrowreturnthick-1-w" />
+                    </p:submenu>
+                </c:if>
+                <f:facet name="options">
+                    <p:commandButton style="margin-right:10px;" value="Accueil" icon="ui-icon-home" ajax="false" action="index.xhtml?faces-redirect=true"/>
+                    <p:commandButton style="margin-right:10px;" value="Mes cours vidéos" icon="ui-icon-star" ajax="false" action="mesCours.xhtml?faces-redirect=true"/>
+                    <p:commandButton value="Se déconnecter (#{session.getAttribute('user').getMail()})" icon="ui-icon-unlocked" ajax="false" action="#{connexion.deconnexion()}"/>
+                </f:facet>
+            </p:menubar>
+        </h:form> 
+        <p:outputPanel>
+            <div id="conteneur">
+                <div class="ui-grid">
+                    <h:form>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-3"></div>
+                            <div class="ui-grid-col-6" style="text-align:center;">
+                                <h2 style="margin-top:0;">Gestion des cours</h2>
+                            </div>
+                            <div class="ui-grid-col-3"></div>
+                        </div>
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-2"></div>
+                            <div class="ui-grid-col-8">
+                                <p:dataTable value="#{presentationCours.listeCours}" var="c" style="text-align:center;">
+                                    <p:column headerText="Image">
+                                        <h:graphicImage class="pic" library="img" name="#{c.img}"/>
+                                    </p:column>
+                                    <p:column headerText="Nom du cours">
+                                        <h:outputText value="#{c.nom}"/>
+                                    </p:column>
+                                    <p:column headerText="Description">
+                                        <h:outputText value="#{fn:substring(c.description,0,60)} ..."/>
+                                    </p:column>
+                                    <p:column headerText="Payant">
+                                        <h:outputText value="#{c.payant}"/>
+                                    </p:column>
+                                    <p:column headerText="Prix">
+                                        <h:outputText value="#{c.prix}"/>
+                                    </p:column>
+                                    <p:column headerText="Nombre épisodes">
+                                        <h:outputText value="#{fn:length(c.listeVideos)}" />
+                                    </p:column>
+                                    <p:column headerText="Action">
+                                        <p:commandButton value="S." icon="ui-icon-trash" action="#{presentationCours.doSupprimer(c.cid)}">
+                                            <p:confirm header="Confirmation" message="Etes-vous sur de vouloir supprimer le cours?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true" showEffect="fade">
+                                            <p:commandButton value="Oui" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                            <p:commandButton value="Non" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        </p:confirmDialog>
+                                        <p:button outcome="modifCours.xhtml" value="M." icon="ui-icon-pencil">
+                                            <f:param name="coursId" value="#{c.cid}" />
+                                        </p:button>
+                                    </p:column>
+                                </p:dataTable>
+                                <p:button outcome="ajouterCours.xhtml" style="margin-top:30px;" value="Ajouter un nouveau cours" icon="ui-icon-circle-plus"/>
+                            </div>
+                            <div class="ui-grid-col-2"></div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </p:outputPanel>
+    </h:body>
+</html>
