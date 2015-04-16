@@ -9,23 +9,15 @@ import boundary.BoundaryCours;
 import boundary.BoundaryVideo;
 import entity.Cours;
 import entity.Video;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
-import static java.lang.Thread.sleep;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.persistence.PostLoad;
 
 @Named
 @RequestScoped
@@ -72,9 +64,6 @@ public class PresentationCours implements Serializable {
         this.cours = boundaryCours.find(this.cours.getCid());
         
         this.cid = (int)(this.cours.getCid());
-        
-        //System.out.println(boundaryVideo.find(this.cours.getCid()));
-
 
         if (cours == null) {
             String message = "Erreur de requête. Utilisateur inconnu";

@@ -144,7 +144,6 @@ public class PresentationUtilisateur {
 
     //Ajoute un cours à un utilisateur
     public String ajouterCours(long cId, long uId) {
-        System.out.println(cId);
         this.setUtilisateur(boundaryUtilisateur.find(uId));
         Cours c = new Cours();
         c = boundaryCours.find(cId);

@@ -47,6 +47,7 @@
                         <div class="ui-grid-col-6">
                             <h:form> 
                                 <p:panel header="Modifiez les champs souhaités">
+                                    <p:messages globalOnly="true" autoUpdate="true"/>
                                     <h:panelGrid columns="3" cellpadding="2">
                                         <h:outputLabel for="nom" value="Nom du cours: " /> 
                                         <p:inputText id="nom" required="true" label="nom" requiredMessage="Entrez le nom du cours" value="#{presentationCours.cours.nom}"/>

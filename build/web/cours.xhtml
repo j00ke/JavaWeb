@@ -56,13 +56,12 @@
                     <div class="ui-grid-row">
                         <div class="ui-grid-col-3"></div>
                         <div class="ui-grid-col-6">
-
                             <h3 style="margin-top: 30px;">Episodes :</h3>
                             <p>Cliquez sur un épisode pour lancer le cours vidéo !</p>
                             <c:forEach items="#{presentationCours.listeVideo}" var="v" varStatus="pos">
                                 <span style="display : #{presentationCours.compareCid(v.cours.cid)}">
                                     <p:commandLink type="button" onclick="PF(#{v.id}).show();" style="display:block;" class="detailLink" actionListener="#{presentationUtilisateur.ajouterVideo(v.id, session.getAttribute('user').getUid())}">
-                                        <h5><b><h:outputText value="Episode #{pos.index+1} : "/></b> &nbsp;<h:outputText value="#{v.nom}"/>       
+                                        <h5><b><h:outputText value="Episode #{cpt} : "/></b> &nbsp;<h:outputText value="#{v.nom}"/>       
                                             <c:forEach items="#{presentationUtilisateur.getUtilisateurById(session.getAttribute('user').getUid()).videosVues}" var="vv" varStatus="pos2">
                                                 <c:if test="#{vv.getId()==v.id}">
                                                     <h:graphicImage style="margin-left: 10px;" library="img" name="check.png" width="15"/>

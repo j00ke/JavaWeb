@@ -5,13 +5,8 @@
  */
 package entity;
 
-import boundary.BoundaryVideo;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import javax.inject.Inject;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
@@ -48,13 +42,16 @@ public class Cours implements Serializable {
     private Boolean payant;   // true = payant  false = gratuit
     
     private double prix;
+    
+    //Liste des épisodes vidéo associé au cours
     @OneToMany(mappedBy = "cours", orphanRemoval=true)
     List<Video> listeVideos;
-    
-    
+       
+    //Liste des utilisateurs ayant ajouté ce cours
     @ManyToMany(mappedBy = "listeCours")
     List<Utilisateur> listeUtils;
 
+    
     public Cours(long cid, String nom, String description, String img, Boolean payant, double prix, List<Video> listeVideos) {
         this.cid = cid;
         this.nom = nom;

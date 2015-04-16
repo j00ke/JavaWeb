@@ -1,9 +1,6 @@
 package entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-import static java.math.BigDecimal.valueOf;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.Size;
 
@@ -30,9 +26,11 @@ public class Video implements Serializable{
     @Size(min = 2, max = 80)
     private String url;
 
+    //Cours auquel la vidéo est associée
     @ManyToOne
     Cours cours;
     
+    //Liste des utilisateurs ayant vus la vidéo
     @ManyToMany(mappedBy = "videosVues")
     List<Utilisateur> listeUtils;
 
